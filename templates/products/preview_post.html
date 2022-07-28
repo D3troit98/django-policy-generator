@@ -1,0 +1,40 @@
+{%extends 'products/base.html' %}
+{%block title%} Preview Post{%endblock%}
+{%block content%}
+{% if posts %}
+<div class="card mt-2">
+    <div class="card-header"><strong>@{{posts.author.username}}</strong> <h3>Privacy policy {{posts.header}} </h1></div>
+        <div class="card-body d-flex flex-row justify-content-between">
+            <div>
+                <button type="button" class="btn btn-success">Edit</button>
+            </div>
+            <div>
+                <button type="button" class="btn btn-warning">Delete</button>
+            </div>
+        </div>
+<h5 class="card-title"> {{post.created_at}} </h5>
+<br />
+<p>{{posts.website_name}} or {{posts.application_name}} is commited to protecting your privacy.
+    This privacy policy explains how your personal information is collected, used and disclosed by {{posts.website_name}} or {{posts.application_name}}. This privacy policy applies to our website, {{posts.website_url}} and its associated subdomains. By accessing or using 
+our Service, (alongside our {{posts.application_name}}) -  /this should be there only if the user picks both/
+you signify that you  have read, understood, and agree  to our collection, storage, use, and disclosure of your personal information as described in this Privacy Policy and our Terms of  Service. </p>
+
+<p>Privacy policy {{posts.header}} {{posts.website_name}} or {{posts.application_name}}  is comitted to protecting your privacy.
+This privacy policy explains how your personal information is collected, used and disclosed by {{posts.website_name}}. This privacy policy applies to our website,{{posts.website_url}}and its associated subdomains. By accessing or using 
+our Service, you signify that you   have read, understood, and agree   to our collection, storage, use, and 
+disclosure of your personal 
+information as described in this Privacy Policy and our Terms of Service.</p>
+
+<h6>-Company</h6>
+<p>When this policy mentions "company", "we", "us" or "our", it refers to {{posts.company_name}}, {{posts.company_address}} or
+ {{posts.website_name}}
+</p>
+<h6>-Country</h6>
+<p>Where website name or the founders/ owners of {{post.website_name}} or {{post.application_name}} are based in this case {{posts.country_based}}
+</p>
+<p>You can contact us at {{posts.email_address}}
+</div>
+{%else%}
+<p>No post yet :( </p>
+{%endif%}
+{%endblock%}

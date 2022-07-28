@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expanded-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="/home">  Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/documentation">  Documentation</a>
+                </li>
+                <li class="nav-item"> 
+                    <a class="nav-link" href="/faq">  FAQ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">  Contact</a>
+                </li>
+            <ul>
+        </div>
+
+        <div>
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                <span class="navbar-text">Logged in as {{user.username}} |</span>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                  </li>
+                {%else%}
+                <li class="nav-item">
+                  <a class="nav-link" href="/login">  Login</a>
+                </li>
+                {%endif%}
+            <ul>
+        </div>
+    </div>
+
+
+
+    
+    </nav>
+

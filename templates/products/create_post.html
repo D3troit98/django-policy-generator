@@ -1,0 +1,10 @@
+{%extends 'products/base.html' %}
+{%block title%}Genetate Policies{%endblock%}
+{%load crispy_forms_tags %}
+{%block content%}
+<h4>Generate your Policies</h4>
+<form method="post">
+    {% csrf_token %} {{form|crispy}}
+    <button type="submit" class="btn btn-success">Generate</button>
+</form>
+{%endblock%}

@@ -1,0 +1,30 @@
+{%extends 'products/base.html' %}
+{%block title%} All Post{%endblock%}
+{%block content%}
+{% for post in posts %}
+<div class="card mt-2">
+    <div class="card-header"><strong>@{{post.author.username}}</strong> {{post.header}}</div>
+        <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+                <button type="button" class="btn btn-success">Edit</button>
+            </div>
+            <div>
+                <button type="button" class="btn btn-warning">Delete</button>
+            </div>
+
+            <div >
+                <a href="/preview-post/{{post.id}}" ><button type="submit" class="btn btn-secondary" >Select </button></a>
+            </div>
+            <h5 class="card-title"> {{post.created_at}} </h5>
+<p>{{post.website_name}} </p>
+<p> {{post.application_name}}  </p>
+<p> {{post.website_url}} </p>
+<p>{{post.company_name}} </p>
+<p>{{post.company_address}} </p>
+<p>{{object_preview.country}}</p>
+       </div>
+
+{%empty%}
+<p>No post yet :( </p>
+{%endfor%}
+{%endblock%}
