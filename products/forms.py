@@ -34,8 +34,7 @@ class RegistrationForm(UserCreationForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post 
-        fields = ['header','website_name','application_name','website_url','company_name',
-                    'company_address','country_based','email_address']
+        fields = ['header','website_name','application_name','website_url','company_name','company_address','country_based','email_address']
 
 class SelectForm(forms.ModelForm):
     class Meta:

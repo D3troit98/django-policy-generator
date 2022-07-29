@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policies</title>
+</head>
+<body>
+    <div class="card mt-2">
+        
+        <div class="card-header"><strong>@{{data.author.username}}</strong> <h3>Privacy policy {{data.header}} </h1></div>
+            <div class="card-body d-flex flex-column justify-content-between">
+                <h5 class="card-title"> {{data.created_at}} </h5>
+                <br />
+                <p>{{data.website_name}} or {{data.application_name}} is commited to protecting your privacy.
+                    This privacy policy explains how your personal information is collected, used and disclosed by {{data.website_name}} or {{data.application_name}}. This privacy policy applies to our website, {{data.website_url}} and its associated subdomains. By accessing or using 
+                our Service, (alongside our {{data.application_name}}) -  /this should be there only if the user picks both/
+                you signify that you  have read, understood, and agree  to our collection, storage, use, and disclosure of your personal information as described in this Privacy Policy and our Terms of  Service. </p>
+                
+                <p>Privacy policy {{data.header}} {{data.website_name}} or {{data.application_name}}  is comitted to protecting your privacy.
+                This privacy policy explains how your personal information is collected, used and disclosed by {{data.website_name}}. This privacy policy applies to our website,{{data.website_url}}and its associated subdomains. By accessing or using 
+                our Service, you signify that you   have read, understood, and agree   to our collection, storage, use, and 
+                disclosure of your personal 
+                information as described in this Privacy Policy and our Terms of Service.</p>
+                
+                <h6>-Company</h6>
+                <p>When this policy mentions "company", "we", "us" or "our", it refers to {{data.company_name}}, {{data.company_address}} or
+                 {{data.website_name}}
+                </p>
+                <h6>-Country</h6>
+                <p>Where website name or the founders/ owners of {{post.website_name}} or {{post.application_name}} are based in this case {{data.country_based}}
+                </p>
+                <p>You can contact us at {{data.email_address}}
+                </div>
+            </div> 
+           
+</body>
+</html>

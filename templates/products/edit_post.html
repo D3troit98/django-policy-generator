@@ -1,0 +1,10 @@
+{%extends 'products/base.html' %}
+{%block title%}Edit Policies{%endblock%}
+{%load crispy_forms_tags %}
+{%block content%}
+<h4>Edit your Policies</h4>
+<form method="post">
+    {% csrf_token %} {{form|crispy}}
+    <button type="submit" class="btn btn-success">Edit</button>
+</form>
+{%endblock%}

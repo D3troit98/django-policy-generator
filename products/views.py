@@ -1,7 +1,9 @@
+from cgitb import text
 from multiprocessing import context
 from pickle import NONE
 from django.shortcuts import render,get_object_or_404, redirect
 from django.http import Http404
+from requests import post
 from .models import Product
 
 from .forms import PostForm, ProductForm
@@ -13,6 +15,35 @@ from  .models import Post
 # Create your views here.
 
 
+
+#pdf imports
+from django.http import FileResponse
+import io
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+from reportlab.lib.pagesizes import letter
+
+# importing the necessary libraries
+from django.http import HttpResponse
+from django.views.generic import View
+from .process import html_to_pdf 
+from django.template.loader import render_to_string
+
+#Creating a class based view
+class GeneratePdf(View):
+     def get(self, request, my_id):
+       
+        data = Post.objects.filter(id=my_id).first()
+        print(data)
+        open('templates/temp.html', "w").write(render_to_string('products/pdf.html', {'data': data}))
+
+        # Converting the HTML template into a PDF file
+        pdf = html_to_pdf('temp.html')
+         # rendering the template
+       # return FileResponse(pdf,as_attachment=True, filename='venue.pdf')
+        return HttpResponse(pdf, content_type='application/pdf')
+
+
 def home_view(request):
     print(request.user)
     return render(request,"products/home.html",{})
@@ -21,13 +52,36 @@ def home_view(request):
 def preview_post(request, my_id):
      posts = Post.objects.get(id= my_id)
      print(posts)
+     if request.method == "DELETE":
+          post_id = request.POST.get("post-id")
      return render(request,"products/preview_post.html",{"posts":posts})
 
 @login_required(login_url="/login")
 def all_post(request):
      posts = Post.objects.all()
-     print(posts.values())
+     
+     if request.method == "POST":
+          post_id = request.POST.get("post-id")
+          edit_id = request.POST.get("edit-id")
+          if post_id:
+               post = Post.objects.filter(id=post_id).first()
+               if post and post.author == request.user:
+                    post.delete()
+          elif edit_id:
+               return redirect(f'/edit-post/{edit_id}')
+               
      return render(request,"products/all_post.html",{"posts":posts})
+
+
+def edit_post(request,my_id):
+     obj = get_object_or_404(Post,id=my_id)
+
+     form = PostForm(request.POST or None, instance=obj)
+     if form.is_valid():
+          form.save()
+          return redirect("/all-post")
+     return render(request, "products/edit_post.html",{'form': form})
+
 
 def sign_up(request):
      if request.method == 'POST':
@@ -47,12 +101,39 @@ def create_post(request):
           if form.is_valid():
                post = form.save(commit=False)
                post.author = request.user
+               print(post)
                post.save()
                return redirect("/all-post")
      else:
           form = PostForm()
 
      return render(request, 'products/create_post.html',{"form":form})
+
+
+#Generate a PDF File Venue list
+# def post_pdf(request,my_id):
+#      buf = io.BytesIO()
+#      c = canvas.Canvas(buf, pagesize=letter, bottomup= 0)
+
+#      textobj = c.beginText()
+#      textobj.setTextOrigin(inch , inch)
+#      textobj.setFont("Helvetica", 14)
+#      lines = Post.objects.all().values()
+     
+
+#      # for line in lines:
+#      #      textobj.textLine(line)
+#      textobj.textLine(lines)
+#      c.drawText(textobj)
+#      c.showPage()
+#      c.save()
+#      buf.seek(0)
+
+#      return FileResponse(buf,as_attachment=True, filename='venue.pdf')
+
+
+
+
 
 # def doc_view(request,*args, **kwargs):
 #      my_context = {
